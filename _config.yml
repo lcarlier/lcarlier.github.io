@@ -1,3 +1,10 @@
-theme: jekyll-theme-hacker
-title: Blog of Laurent Carlier
-description: A blog about my finding and thoughts
+title : Blog of Laurent Carlier
+description: 'A blog about my thoughts and findings'
+
+markdown: kramdown
+highlighter: rouge
+logo: false
+paginate: 15
+baseurl: /
+plugins: [jekyll-gist]
+permalink: /:year/:month/:title.html
