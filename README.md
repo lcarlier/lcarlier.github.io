@@ -35,7 +35,6 @@ Wall-E is fully furnished right out of the box. To use this template on your blo
 - Clone your fork
 - Delete everything in `_posts` directory. Delete the `tmp` directory.
 - Open `_config.yml` and set the variables
-- Open `_includes/disqus.html` and `_includes/disqus-count.html` and replace the value of `disqus_shortname` variable to your Disqus username
 - Run `jekyll serve` and your blog should be live on `http://localhost:4000`. Make changes, test them locally, commit your changes and push to your fork. Your changes should be live in a couple of seconds
 
 ## Customization
