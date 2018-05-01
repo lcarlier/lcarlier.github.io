@@ -23,7 +23,7 @@ The simplest idea that I got is to implement a 3 way switch configuration but em
 
 To make this project, my plan is to use the following component:
 
-- Atmel328-28p (I did not use an arduino nano or mini, see below why)
+- Atmega328-28p (I did not use an arduino nano or mini, see below why)
 - SRD-05VDC-SL-C Relay
 - A 2N3904 transistor to control the relay
 - NRF24L01 for RF transmission
@@ -35,15 +35,15 @@ To make this project, my plan is to use the following component:
 
 I quickly realized that due to space size, I will not be able to fit a full Arduino nano or mini into my switch box. Same conclusion for the SRD-05VDC-SL-C relay which usually is shipped on a breakout board. 
 
-As such, my project already challenged me as I didn't know how to use the Atmel328-28p without its Arduino PCB. Same for the SRD-05VDC-SL-C relay without its breakout board.
+As such, my project already challenged me as I didn't know how to use the Atmega328-28p without its Arduino PCB. Same for the SRD-05VDC-SL-C relay without its breakout board.
 
-For the Atmel328-38p, I learned that it has an embedded 8Mhz clock. But in order to use it, we need to burn a specific bootloader. All the info on how to do that is explained on the [arduino website](https://www.arduino.cc/en/Tutorial/ArduinoToBreadboard). (see the last section about eliminating the external clock). It worked like a charm for me.
+For the Atmega328-38p, I learned that it has an embedded 8Mhz clock. But in order to use it, we need to burn a specific bootloader. All the info on how to do that is explained on the [arduino website](https://www.arduino.cc/en/Tutorial/ArduinoToBreadboard). (see the last section about eliminating the external clock). It worked like a charm for me.
 
-Then I had to understand how to wire up the standalone Atmel328-28p. To do so I checked how it was done on the Arduino board. What I did is to wire the following part of the Arduino mini datasheet
+Then I had to understand how to wire up the standalone Atmega328-28p. To do so I checked how it was done on the Arduino board. What I did is to wire the following part of the Arduino mini datasheet
 
 ![ArduinoReset](/assets/img/smartSwitch/arduinoreset.jpg  "Arduino reset schematic"){:height="300px"}
 
-After that, I could program the Atmel328 using the FDT232RL breakout board and the Arduino uploader. The correct connection from the FDT232RL to the Atmel328-28p's pins are:
+After that, I could program the Atmega328 using the FDT232RL breakout board and the Arduino uploader. The correct connection from the FDT232RL to the Atmega328-28p's pins are:
 
 - DTR -> DTR
 - GND -> GND
@@ -108,13 +108,13 @@ To solder the components and make sure both sides where connected, I followed th
 
 First of all, the software I'm using to run my node is using the MySensor library. If you don't know it yet, go on their [website](https://www.mysensors.org/) and have a look. They really have interesting projects.
 
-Time now for testing. At first glance, I realized that I didn't switched the RX and TX line in between the FDT232RL and my Atmel328 at the PCB level. As a consequence, I couldn't see any output. Hopefuly enough, it is an easy fixable mistake by using regular jumper cable. The second issue I got was that the communication in between my node and my gateway was not working properly. It happens that the connection is much more stable if you mount a decoupling capacitor in between VCC and GND on the NRF24L01 input.
+Time now for testing. At first glance, I realized that I didn't switched the RX and TX line in between the FDT232RL and my Atmega328 at the PCB level. As a consequence, I couldn't see any output. Hopefuly enough, it is an easy fixable mistake by using regular jumper cable. The second issue I got was that the communication in between my node and my gateway was not working properly. It happens that the connection is much more stable if you mount a decoupling capacitor in between VCC and GND on the NRF24L01 input.
 
 Those problems being solved, I decided first to retest lightning up a LED. As the following video demonstrate, the result is very good. Have a look at the feedback on the cellphone when the manual switch on the breadboard is activated.
 
 {% include youtube.html id="OeRLf1SrVcU" %}
 
-However, when trying with a regular lamp, something is going wrong. 
+However, when trying with a 220V light bulb, something is going wrong.
 
 {% include youtube.html id="o9J_xXDBoP8" %}
 
@@ -122,10 +122,12 @@ The first issue which is obvious is that there is a huge delay in between the ti
 
 The second issue that I have is that the serial connection is not stable. Whenever the light switch off, the serial connection is dropping. By connecting an oscilloscope, I noticed that there is the DTR signal of the FDT232RL which is going high for no reason. Again here I believe the high voltage of my lamp is generating noises and this is reflected as having a voltage on that pin.
 
+Note that the fact that I'm seeing this wierd behavior of my DTR signal is maybe a consequence of other things going wrong. Story to be continued...
+
 ![Testing](/assets/img/smartSwitch/IMG_0651.JPG  "DTR signal"){:height="300px"}![Testing](/assets/img/smartSwitch/IMG_0654.JPG  "DTR signal"){:height="300px"}
 
 # Conclusion
 
 It was an amazing journey! I learned a lot of things. Yet I do not have a 100% working solution, but the results that I have are very promising.
 
-Full source code and full design is available on the [github repository](https://github.com/lcarlier/smartswitch)  I made for that purpose.
+Full source code and full design is available on the [github repository](https://github.com/lcarlier/smartswitch) I made for that purpose.
