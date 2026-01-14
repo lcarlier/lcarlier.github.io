@@ -8,3 +8,10 @@ paginate: 15
 baseurl: /
 plugins: [jekyll-gist]
 permalink: /:year/:month/:title.html
+
+# Add these lines for syntax highlighting
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
