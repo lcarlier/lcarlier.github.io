@@ -1,9 +1,9 @@
 ---
 layout: post
 title: The dangers of using __attribute__((packed))
-description: Running a Qt application in your web browser
-modified: 2025-12-20
-tags: [Qt, emscripten]
+description: Article talking about issues that can arise when using the __attribute__((packed))
+modified: 2026-01-14
+tags: [packed]
 author: lcarlier
 ---
 
