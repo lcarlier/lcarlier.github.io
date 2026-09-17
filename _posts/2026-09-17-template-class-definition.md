@@ -57,17 +57,17 @@ The typical way to define the functions of the templated class is by giving the 
 **Stack.hpp**
 ```cpp
 template<typename T>
-	class Stack {
-	private:
-		std::vector<T> data;
-	public:
-		void pop() { data.pop_back(); }
-		const T& top() const { return data.back(); }
-		bool empty() const { return data.empty(); }
-		std::size_t size() const { return data.size(); }
-	 
-		template <typename ...U>
-		void emplace(U&&... args) { data.emplace_back(std::forward<U>(args)...); }
+    class Stack {
+    private:
+        std::vector<T> data;
+    public:
+        void pop() { data.pop_back(); }
+        const T& top() const { return data.back(); }
+        bool empty() const { return data.empty(); }
+        std::size_t size() const { return data.size(); }
+
+        template <typename ...U>
+        void emplace(U&&... args) { data.emplace_back(std::forward<U>(args)...); }
 };
 ```
 The above example shows a straightforward stack implementation. All the class methods (`pop`, `top`, ...) are defined inside the class definition.
