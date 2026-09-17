@@ -1,7 +1,7 @@
 ---
 layout: post
-title: How to define a C++ class template outside the class definition
-description: We are going through different ways of defining a template outside of the class definition
+title: How to define a C++ templated member function of a templated class outside the class definition
+description: We are going to explain the syntax and why it make sense.
 modified: 2026-03-07
 tags: [C++, templates]
 author: lcarlier
