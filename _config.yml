@@ -1,11 +1,12 @@
 title : Blog of Laurent Carlier
 description: 'A blog about my thoughts and findings'
+url: https://www.laurentcarlier.com
+baseurl: ""
 
 markdown: kramdown
 highlighter: rouge
 logo: false
 paginate: 15
-baseurl: /
 plugins: [jekyll-gist]
 permalink: /:year/:month/:title.html
 

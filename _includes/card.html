@@ -1,38 +1,15 @@
-<div class="ui card">
-
-<!--     {% assign foundImage = 0 %}
-    {% assign images = post.content | split:"<img" %}
-    {% for image in images %}
-        {% if image contains 'src' %}
-            {% if foundImage == 0 %}
-                {% assign html = image | split:">" | first %}
-                <div class="image">
-                    <img {{ html }} />
-                </div> 
-                {% assign foundImage = 1 %}
-                {% break %}
-            {% endif %}
+<article class="post-card">
+    <p class="post-meta">
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+        {% if post.categories.size > 0 %}
+            <span aria-hidden="true">·</span>
+            {{ post.categories | join: ", " }}
+        {% elsif post.tags.size > 0 %}
+            <span aria-hidden="true">·</span>
+            {{ post.tags.first }}
         {% endif %}
-    {% endfor %} -->
-
-    <div class="content">
-        <a class="header" href="{{ BASE_PATH }}{{ post.url }}">{{ post.title | strip_html | truncatewords: 15 }}</a>
-        <div class="meta">
-            <span class="date">{{ post.date | date_to_string }} 
-            {% if post.category %} 
-                in {{ post.categories }}
-            {% endif %} 
-            </span>
-        </div>
-        <div class="description">
-            {{ post.content | strip_html | truncatewords: 30 }}
-        </div>
-    </div>
-    <div class="extra content">
-        {% if post.author %}
-        <div class="right floated author">
-            <img class="ui avatar image" src="/assets/img/profile.jpg"> {{ post.author }}
-        </div>
-        {% endif %}
-    </div>
-</div>
+    </p>
+    <h3><a href="{{ post.url }}">{{ post.title | strip_html }}</a></h3>
+    <p class="post-summary">{{ post.description | default: post.excerpt | default: post.content | strip_html | strip_newlines | truncatewords: 24 }}</p>
+    <a class="text-link" href="{{ post.url }}">Read more <span aria-hidden="true">→</span></a>
+</article>

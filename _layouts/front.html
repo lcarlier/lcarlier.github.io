@@ -2,42 +2,48 @@
 layout: default
 ---
 
-<!-- one, two and then four card rows -->
-<div class="ui centered grid stackable">
-    {% assign counter = 0 %}
-    {% for post in site.posts %}
-        {% assign counter = counter | plus: 1 %}
-        {% if counter == 1 %}
-            <div class="eight wide column">
-                {% include card.html %}
-            </div>
-        {% elsif counter == 2 %}
-            <div class="eight wide column">
-                {% include card.html %}
-            </div>
-        {% elsif counter <= 10 %}
-            <div class="four wide column">
-                {% include card.html %}
-            </div>
-        {% else %}
-            {% if counter == 11 %}
-                <div class="ui horizontal divider">
-                    Older Posts
-                </div>
-            {% endif %}
-            <div class="sixteen wide column">
-                <div class="ui middle aligned selection list">
-                    <div class="item">
-                        <div class="header">
-                            {{ post.title | strip_html | truncatewords: 15 }}
-                            <small class="small-date">{{ post.date | date_to_string }}</small>
-                        </div>
-                        {{ post.content | strip_html | truncatewords: 30 }}
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endfor %}
-</div>
-<div class="ui divider"></div>
+<section class="home-intro" aria-labelledby="home-title">
+    <p class="eyebrow">A personal engineering journal</p>
+    <h1 id="home-title">Curiosity, <span>built into things.</span></h1>
+    <p class="home-intro__summary">Notes on software, embedded systems, and the projects that bring them together.</p>
+</section>
 
+{% assign featured_post = site.posts.first %}
+{% if featured_post %}
+    <section class="post-section" aria-labelledby="latest-title">
+        <div class="section-heading">
+            <h2 id="latest-title">Latest writing</h2>
+            <a href="/archive.html">All posts <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="featured-post">
+            <p class="eyebrow">Featured note</p>
+            <h3><a href="{{ featured_post.url }}">{{ featured_post.title | strip_html }}</a></h3>
+            <p class="post-meta">
+                <time datetime="{{ featured_post.date | date: '%Y-%m-%d' }}">{{ featured_post.date | date: "%B %-d, %Y" }}</time>
+                {% if featured_post.categories.size > 0 %}
+                    <span aria-hidden="true">·</span>
+                    {{ featured_post.categories | join: ", " }}
+                {% elsif featured_post.tags.size > 0 %}
+                    <span aria-hidden="true">·</span>
+                    {{ featured_post.tags.first }}
+                {% endif %}
+            </p>
+                <p class="post-summary">{{ featured_post.description | default: featured_post.excerpt | default: featured_post.content | strip_html | strip_newlines | truncatewords: 34 }}</p>
+            <a class="text-link" href="{{ featured_post.url }}">Read the article <span aria-hidden="true">→</span></a>
+        </div>
+    </section>
+
+    {% assign remaining_posts = site.posts | slice: 1, 6 %}
+    {% if remaining_posts.size > 0 %}
+        <section class="post-section" aria-labelledby="more-title">
+            <div class="section-heading">
+                <h2 id="more-title">More to explore</h2>
+            </div>
+            <div class="post-grid">
+                {% for post in remaining_posts %}
+                    {% include card.html %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endif %}

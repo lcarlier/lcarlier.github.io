@@ -3,21 +3,21 @@ layout: page
 title: Archive
 ---
 
-{% for post in site.posts %}
-
-    <div class="ui middle aligned selection list">
-        <div class="item">
-            <a class="header" href="{{ BASE_PATH }}{{ post.url }}">
-                {{ post.title | strip_html | truncatewords: 15 }}
-                <small class="small-date">
-                    {{ post.date | date_to_string }}
-                    {% if post.category %} 
-                        in <i>{{ post.category }}</i>
-                    {% endif %} 
-                </small>
-            </a>
-            {{ post.content | strip_html | truncatewords: 30 }}
-        </div>
-    </div>
-
-{% endfor %}
+<div class="archive-list">
+    {% for post in site.posts %}
+        <article class="archive-entry">
+            <p class="post-meta">
+                <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+                {% if post.categories.size > 0 %}
+                    <span aria-hidden="true">·</span>
+                    {{ post.categories | join: ", " }}
+                {% elsif post.tags.size > 0 %}
+                    <span aria-hidden="true">·</span>
+                    {{ post.tags.first }}
+                {% endif %}
+            </p>
+            <h2><a href="{{ post.url }}">{{ post.title | strip_html }}</a></h2>
+            <p class="post-summary">{{ post.description | default: post.excerpt | default: post.content | strip_html | strip_newlines | truncatewords: 28 }}</p>
+        </article>
+    {% endfor %}
+</div>

@@ -1,42 +1,17 @@
-<div class="header-wrapper">
-    <header>
-        <!-- logo and description -->
-        {% if page.layout != "post" %}
-        <div class="head-area">
-            <h1 class="site-logo">
-                <a href="/"><img src="/assets/img/logo.png" class="logo"/></a>
-            </h1>
-            <h3 class="site-description">{{ site.description }}</h3>
-        </div>
-        {% endif %}
-        <nav class="site-nav">
-            <div class="left-nav">
-                <!-- add titles to all buttons -->
-                <div class="ui secondary menu inverted">
-                    <a class="item" href="/">
-                        Home
-                    </a>
-                    <a class="item" href="/about.html">
-                        About
-                    </a>
-                    <a class="item" href="/archive.html">
-                        Archive
-                    </a>
-                    <div class="right menu">
-                        <div id="head-search" class="ui category search item">
-                            <div class="ui transparent icon input">
-                                <input placeholder="Search..." type="text" id="search-input" onkeypress="handleKeyPress()">
-                                <i class="search link icon" onclick="handleSubmit()"></i>
-                            </div>
-                        </div>
-
-                        <a class="item" href="https://github.com/lcarlier">
-                            <i class="github link icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="right-nav"></div>
+<header class="site-header">
+    <div class="site-header__inner">
+        <a class="brand" href="/" aria-label="Laurent Carlier — home">
+            <span class="brand-mark" aria-hidden="true">LC</span>
+            <span class="brand-copy">
+                <span class="brand-name">Laurent Carlier</span>
+                <span class="brand-description">Expert C++ embedded software engineer</span>
+            </span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a>
+            <a href="/archive.html" {% if page.url == "/archive.html" %}aria-current="page"{% endif %}>Archive</a>
+            <a href="/about.html" {% if page.url == "/about.html" %}aria-current="page"{% endif %}>About</a>
+            <a class="github-link" href="https://github.com/lcarlier">GitHub <span aria-hidden="true">↗</span></a>
         </nav>
-    </header>
-</div>
+    </div>
+</header>

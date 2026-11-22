@@ -199,7 +199,7 @@ Rather than benchmark figures, let's go straight to the generated assembly. You 
 
 `Array of structures`
 
-```x86asm
+```nasm
 onFrame(float):
         movaps  xmm1, xmm0
         shufps  xmm1, xmm0, 0
@@ -239,7 +239,7 @@ particles:
 
 `Structure of arrays`
 
-```x86asm
+```nasm
 onFrame(float):
         shufps  xmm0, xmm0, 0
         xor     eax, eax
